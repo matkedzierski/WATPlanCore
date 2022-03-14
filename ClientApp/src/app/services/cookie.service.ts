@@ -49,7 +49,7 @@ export class CookieService {
 
   deleteSaved(plan: Plan) {
     let saved = this.getSavedPlans();
-    let ind = saved.findIndex(p => p.ID === plan.ID);
+    let ind = saved.findIndex(p => p.id === plan.id);
     saved.splice(ind, 1);
     this.storeSavedPlans(saved);
   }
@@ -71,7 +71,7 @@ export class CookieService {
   deleteShown(plan: Plan) {
     if (!plan) return;
     let shown = this.getShownPlans();
-    let ind = shown.findIndex(p => p.ID === plan.ID);
+    let ind = shown.findIndex(p => p.id === plan.id);
     if (ind == -1) return;
     shown.splice(ind, 1);
     this.storeShownPlans(shown);

@@ -9,7 +9,7 @@ import {Plan} from "../../../models/plan";
 export class PlanListOptionComponent implements OnInit {
 
   @Input()
-  plan: Plan;
+  plan!: Plan;
 
   @Output()
   delete: EventEmitter<void> = new EventEmitter<void>();

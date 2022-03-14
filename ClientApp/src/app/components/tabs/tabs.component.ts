@@ -12,7 +12,7 @@ import {map, shareReplay} from "rxjs/operators";
 export class TabsComponent implements OnInit {
 
   @Input()
-  plans: Plan[];
+  plans: Plan[] = [];
 
   constructor(private breakpointObserver: BreakpointObserver) {
   }

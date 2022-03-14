@@ -11,22 +11,22 @@ export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
   // you can override any of the methods defined in the parent class
 
   month(event: CalendarEvent): string {
-    return `<b>${formatDate(event.start, 'HH:mm', this.locale)} - ${formatDate(event.end, 'HH:mm', this.locale)}</b> &nbsp;${event.title} <small><i>(${event.meta.event.Type})</i> &nbsp;[${event.meta.event.Number}]</small>`;
+    return `<b>${formatDate(event.start, 'HH:mm', this.locale)} - ${formatDate(event.end!, 'HH:mm', this.locale)}</b> &nbsp;${event.title} <small><i>(${event.meta.event.type})</i> &nbsp;[${event.meta.event.number}]</small>`;
   }
 
   week(event: CalendarEvent): string {
-    return `<span class="break center"><span>${event.title}</span></span><span class="break center">(${event.meta.event.Type}) [${event.meta.event.Number}]</span><span class="break center">${formatDate(event.start, 'HH:mm', this.locale)} - ${formatDate(event.end, 'HH:mm', this.locale)}</span>`;
+    return `<span class="break center"><span>${event.title}</span></span><span class="break center">(${event.meta.event.type}) [${event.meta.event.number}]</span><span class="break center">${formatDate(event.start, 'HH:mm', this.locale)} - ${formatDate(event.end!, 'HH:mm', this.locale)}</span>`;
   }
 
   weekTooltip(event: CalendarEvent, title: string): string {
-    return `${event.title} (${event.meta.event.Type}) [${event.meta.event.Number}]`;
+    return `${event.title} (${event.meta.event.type}) [${event.meta.event.number}]`;
   }
 
   day(event: CalendarEvent): string {
-    return `<span class="break"><span>${event.title}</span></span><span class="break">(${event.meta.event.Type}) [${event.meta.event.Number}]</span><span class="break">${formatDate(event.start, 'HH:mm', this.locale)} - ${formatDate(event.end, 'HH:mm', this.locale)}</span>`;
+    return `<span class="break"><span>${event.title}</span></span><span class="break">(${event.meta.event.type}) [${event.meta.event.number}]</span><span class="break">${formatDate(event.start, 'HH:mm', this.locale)} - ${formatDate(event.end!, 'HH:mm', this.locale)}</span>`;
   }
 
   dayTooltip(event: CalendarEvent, title: string): string {
-    return `${event.title} (${event.meta.event.Type}) [${event.meta.event.Number}]`;
+    return `${event.title} (${event.meta.event.type}) [${event.meta.event.number}]`;
   }
 }

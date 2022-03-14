@@ -1,5 +1,5 @@
 export interface Plan {
-  Name: string;
-  ID: string;
-  Type: string;
+  name: string;
+  id: string;
+  type: string;
 }

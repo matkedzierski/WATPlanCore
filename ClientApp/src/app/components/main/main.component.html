@@ -45,7 +45,7 @@
       <ng-container *ngIf="currentPlans && currentPlans.length > 0">
         <div class="plan-title">
           <span *ngFor="let plan of currentPlans; let isLast=last">
-             {{plan.Name}}{{isLast ? '' : ',&nbsp;'}}
+             {{plan.name}}{{isLast ? '' : ',&nbsp;'}}
           </span>
         </div>
       </ng-container>

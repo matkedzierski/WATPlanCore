@@ -1,9 +1,10 @@
 using System.Xml.Serialization;
 using WATPlanCore.Models;
+using WATPlanCore.Models.Xml;
 
 namespace WATPlanCore.Aggregators;
 
-public static class UnitDataSource
+public static class UnitAggregator
 {
     private const string StatusUrl = "http://www.plansoft.org/wat/status.xml";
 

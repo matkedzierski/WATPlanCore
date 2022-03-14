@@ -9,9 +9,10 @@ import {CalendarView} from "angular-calendar";
 })
 export class CalendarHeaderComponent implements OnInit {
 
-  @Input() view: CalendarView;
+  @Input()
+  view!: CalendarView;
 
-  @Input() viewDate: Date;
+  @Input() viewDate!: Date;
 
   @Input() locale: string = 'pl';
 

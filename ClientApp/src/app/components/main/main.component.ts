@@ -21,7 +21,8 @@ export class MainComponent implements OnInit, AfterViewInit {
   currentPlans: Plan[] = [];
   lock: boolean = false;
 
-  @ViewChild(PlanComponent) planComponent: PlanComponent;
+  @ViewChild(PlanComponent)
+  planComponent!: PlanComponent;
   prefs: { [name: string]: boolean } = {};
 
   // mobile phones
@@ -67,16 +68,16 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.currentPlans = this.prefs.multiple ? shown : [shown[0]];
 
     for (let plan of this.currentPlans) {
-      this.eventLoader.loadEvents(plan.ID);
+      this.eventLoader.loadEvents(plan.id);
     }
     this.eventLoader.loadingChanged.next(false);
   }
 
   selectPlan(plan: Plan) {
     if (this.lock) return;
-    let ind = this.currentPlans.findIndex(p => p.ID === plan.ID);
+    let ind = this.currentPlans.findIndex(p => p.id === plan.id);
     if (ind > -1) {
-      this.eventLoader.unloadEvents(plan.ID);
+      this.eventLoader.unloadEvents(plan.id);
       this.currentPlans.splice(ind, 1);
       this.currentPlans = Array.from(this.currentPlans);
       this.cookies.deleteShown(plan);
@@ -85,13 +86,13 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.currentPlans = this.currentPlans.concat([plan]);
       } else {
         let prev = this.currentPlans[0];
-        this.eventLoader.unloadEvents(prev?.ID);
+        this.eventLoader.unloadEvents(prev?.id);
         this.cookies.deleteShown(prev);
         this.currentPlans = [plan];
       }
       this.cookies.saveShown(plan);
       this.cdRef.detectChanges();
-      this.eventLoader.loadEvents(plan.ID);
+      this.eventLoader.loadEvents(plan.id);
     }
   }
 
@@ -100,7 +101,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   savePlan(plan: Plan) {
-    if (this.savedplans.findIndex(p => p.ID === plan.ID) != -1) {
+    if (this.savedplans.findIndex(p => p.id === plan.id) != -1) {
       this.snackBar.open("Ten plan jest już zapisany!", "OK", {duration: 2500});
     } else {
       this.savedplans.push(plan);
@@ -108,12 +109,12 @@ export class MainComponent implements OnInit, AfterViewInit {
       console.log('main saved');
       if (this.savedplans.length == 1)
         this.selectPlan(plan);
-      this.snackBar.open("Plan " + plan.Name + " został zapisany!", "OK", {duration: 2500});
+      this.snackBar.open("Plan " + plan.name + " został zapisany!", "OK", {duration: 2500});
     }
   }
 
   deletePlan(plan: Plan) {
-    this.eventLoader.unloadEvents(plan.ID);
+    this.eventLoader.unloadEvents(plan.id);
     let ind = this.savedplans.findIndex(p => p == plan);
     this.savedplans.splice(ind, 1);
     this.cookies.deleteSaved(plan);
@@ -123,21 +124,21 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.cookies.deleteShown(plan);
     }
 
-    this.snackBar.open("Plan " + plan.Name + " został usunięty!", "OK", {duration: 2500});
+    this.snackBar.open("Plan " + plan.name + " został usunięty!", "OK", {duration: 2500});
   }
 
   prefsChanged(pref: any) {
     this.prefs[pref.name] = pref.value;
     if (!this.prefs.multiple && this.currentPlans.length > 0) {
       for (let i = 1; i < this.currentPlans.length; i++) {
-        this.eventLoader.unloadEvents(this.currentPlans[i].ID);
+        this.eventLoader.unloadEvents(this.currentPlans[i].id);
       }
       this.currentPlans = [this.currentPlans[0]];
     }
   }
 
   isActive(plan: Plan) {
-    return this.currentPlans.findIndex(p => p.ID === plan.ID) != -1;
+    return this.currentPlans.findIndex(p => p.id === plan.id) != -1;
   }
 
   ngAfterViewInit(): void {

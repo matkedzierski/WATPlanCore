@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
   allplans: Plan[] = [];
   filteredplans: Plan[] = [];
   shownplans: Plan[] = [];
-  lastSearch: string;
+  lastSearch!: string | null;
   isLoading: boolean = false;
   search: FormControl = new FormControl('');
 
@@ -52,10 +52,10 @@ export class SearchComponent implements OnInit {
       this.lastSearch = null;
     } else {
       this.isLoading = true;
-      if (txt.startsWith(this.lastSearch)) {
-        this.filteredplans = this.filteredplans.filter((p) => p.Name.toLowerCase().includes(txt));
+      if (txt.startsWith(this.lastSearch!)) {
+        this.filteredplans = this.filteredplans.filter((p) => p.name.toLowerCase().includes(txt));
       } else {
-        this.filteredplans = this.allplans.filter((p) => p.Name.toLowerCase().includes(txt));
+        this.filteredplans = this.allplans.filter((p) => p.name.toLowerCase().includes(txt));
       }
       this.shownplans = this.filteredplans.slice(0, 10);
       this.lastSearch = txt;
@@ -70,7 +70,7 @@ export class SearchComponent implements OnInit {
   }
 
   getTransitionTimes(plan: Plan) {
-    let secs = plan.Name.length / 10;
+    let secs = plan.name.length / 10;
     return {
       '-webkit-transition': secs + 's',
       '-moz-transition': secs + 's',

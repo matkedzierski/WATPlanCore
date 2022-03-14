@@ -9,7 +9,7 @@ import {Observable, Subject} from "rxjs";
 })
 export class EventLoader {
 
-  private API_BASE_URL = "//watplan.somee.com/api/events";
+  private API_BASE_URL = "api/events";
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
@@ -24,16 +24,16 @@ export class EventLoader {
   }
 
   getEvents(planID: string): Observable<Event[]> {
-    return this.api.get<Event[]>(this.API_BASE_URL + '?id=' + planID, {headers: this.headers});
+    return this.api.get<Event[]>(this.API_BASE_URL + '/' + planID, {headers: this.headers});
   }
 
   mapper = (event: Event, planID: string) => {
     let ev = new CalendarEvent();
-    ev.color = {primary: event.Color, secondary: event.Color};
-    ev.title = event.Name;
-    ev.id = event.ID;
-    ev.start = new Date(event.StartTime);
-    ev.end = new Date(event.EndTime);
+    ev.color = {primary: event.color, secondary: event.color};
+    ev.title = event.name;
+    ev.id = event.id;
+    ev.start = new Date(event.startTime);
+    ev.end = new Date(event.endTime);
     ev.meta = {
       event: event,
       planID: planID
@@ -60,12 +60,12 @@ export class EventLoader {
 }
 
 export class CalendarEvent implements CalendarEvent {
-  color: EventColor;
-  end: Date;
-  id: string | number;
-  meta: any;
-  start: Date;
-  title: string;
+  color!: EventColor;
+  end!: Date;
+  id!: string | number;
+  meta!: any;
+  start!: Date;
+  title!: string;
   cssClass: string = 'event';
 }
 

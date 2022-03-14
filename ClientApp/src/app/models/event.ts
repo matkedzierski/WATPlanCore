@@ -1,21 +1,21 @@
 export interface Event {
-  ID: string;
-  Name: string;
-  Shortcut: string;
-  Type: string;
-  Number: number;
-  Color: string;
+  id: string;
+  name: string;
+  shortcut: string;
+  type: string;
+  number: number;
+  color: string;
 
-  StartTime: Date;
-  EndTime: Date;
+  startTime: Date;
+  endTime: Date;
 
-  Lecturer: string;
-  Room: string;
-  Groups: string;
-  Info: string;
+  lecturer: string;
+  room: string;
+  groups: string;
+  info: string;
 
-  Week: number;
-  DayOfWeek: number;
-  BlockNumber: number;
-  BlockSpan: number;
+  week: number;
+  dayOfWeek: number;
+  blockNumber: number;
+  blockSpan: number;
 }

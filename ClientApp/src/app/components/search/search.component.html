@@ -25,7 +25,7 @@
        (click)="savePlan(plan)"
        class="plan-div">
       <div #item style="display: flex; height: 100%; align-items: center;">
-        <span [class.move]="plan.Name.length > 20" [ngStyle]="getTransitionTimes(plan)">{{plan.Name}}</span>
+        <span [class.move]="plan.name.length > 20" [ngStyle]="getTransitionTimes(plan)">{{plan.name}}</span>
       </div>
     </a>
   </mat-nav-list>

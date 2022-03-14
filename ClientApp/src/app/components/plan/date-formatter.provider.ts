@@ -22,17 +22,17 @@ export class DateFormatter extends CalendarDateFormatter {
   ];
 
   monthViewTitle({date, locale}: DateFormatterParams): string {
-    return this.months[date.getMonth()] + " " + formatDate(date, "YYYY", locale);
+    return this.months[date.getMonth()] + " " + formatDate(date, "YYYY", locale!);
   }
 
   weekViewTitle({date, locale, weekStartsOn, excludeDays, daysInWeek,}: DateFormatterParams): string {
     if (!weekStartsOn) weekStartsOn = 1;
     let start = startOfWeek(date, {weekStartsOn: weekStartsOn as 0 | 1 | 2 | 3 | 4 | 5 | 6});
-    let stMonth = formatDate(start, "MMMM", locale);
+    let stMonth = formatDate(start, "MMMM", locale!);
     let stDate = start.getDate();
 
     let end = endOfWeek(date, {weekStartsOn: weekStartsOn as 0 | 1 | 2 | 3 | 4 | 5 | 6});
-    let endMonth = formatDate(end, "MMMM", locale);
+    let endMonth = formatDate(end, "MMMM", locale!);
     let endDate = end.getDate();
 
     if (stMonth === endMonth) {
@@ -43,23 +43,23 @@ export class DateFormatter extends CalendarDateFormatter {
   }
 
   dayViewTitle({date, locale}: DateFormatterParams): string {
-    return formatDate(date, "dd MMMM yyyy (EEEE)", locale);
+    return formatDate(date, "dd MMMM yyyy (EEEE)", locale!);
   }
 
   weekViewColumnHeader({date, locale}: DateFormatterParams): string {
-    return formatDate(date, "EEEE", locale);
+    return formatDate(date, "EEEE", locale!);
   }
 
   weekViewColumnSubHeader({date, locale,}: DateFormatterParams): string {
-    return formatDate(date, "dd.MM", locale);
+    return formatDate(date, "dd.MM", locale!);
   }
 
   monthViewColumnHeader({date, locale}: DateFormatterParams): string {
-    return formatDate(date, "EEEE", locale);
+    return formatDate(date, "EEEE", locale!);
   }
 
   public dayViewHour({date, locale}: DateFormatterParams): string {
-    return formatDate(date, 'HH:mm', locale);
+    return formatDate(date, 'HH:mm', locale!);
   }
 
   public weekViewHour({date, locale}: DateFormatterParams): string {

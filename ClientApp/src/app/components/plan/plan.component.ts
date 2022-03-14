@@ -46,9 +46,9 @@ export class PlanComponent implements OnInit, OnDestroy, OnChanges {
   shownEvents: CalendarEvent[] = [];
   isLoading: boolean = true;
   lastDay: any;
-  loadingSubscription: Subscription;
-  eventsUnloadedSubscription: Subscription;
-  eventsLoadedSubscription: Subscription;
+  loadingSubscription!: Subscription;
+  eventsUnloadedSubscription!: Subscription;
+  eventsLoadedSubscription!: Subscription;
   prefs: { [name: string]: boolean } = {};
 
   constructor(@Inject(DOCUMENT) protected document: Document,
