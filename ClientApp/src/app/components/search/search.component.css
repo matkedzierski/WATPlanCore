@@ -1,0 +1,42 @@
+mat-form-field {
+  width: 100%;
+}
+
+.move:hover {
+  margin-left: -120%;
+}
+
+.plan-div:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.mat-list-item {
+  width: 100%;
+}
+
+.plan-div {
+  width: 100%;
+  overflow: hidden;
+}
+
+
+.plan-div span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.move {
+  display: block;
+  height: 100%;
+  margin-left: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+

@@ -1,0 +1,14 @@
+.option {
+  display: flex;
+  height: 45px;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 16px;
+  align-items: center;
+}
+
+.option span {
+  flex-grow: 1;
+}

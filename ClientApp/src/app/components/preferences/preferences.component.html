@@ -1,0 +1,54 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Preferencje
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="option" (click)="mulToggle()">
+    <span>
+      Nakładaj plany
+    </span>
+    <mat-slide-toggle #multiplePlansPref style="float:right;"
+                      (click)="$event.preventDefault()"
+                      [checked]="prefs.multiple"></mat-slide-toggle>
+  </div>
+
+
+  <div class="option" (click)="lecToggle()">
+    <span>
+      Ukryj wykłady
+    </span>
+    <mat-slide-toggle style="float:right;"
+                      (click)="$event.preventDefault()"
+                      [checked]="prefs.lectures"></mat-slide-toggle>
+  </div>
+
+  <div class="option" (click)="weekToggle()">
+    <span>
+      Ukryj weekendy
+    </span>
+    <mat-slide-toggle style="float:right;"
+                      (click)="$event.preventDefault()"
+                      [checked]="prefs.weekends"></mat-slide-toggle>
+  </div>
+
+  <div class="option" (click)="hoursToggle()">
+    <span>
+      Tylko 8-21
+    </span>
+    <mat-slide-toggle style="float:right;"
+                      (click)="$event.preventDefault()"
+                      [checked]="prefs.hours"></mat-slide-toggle>
+  </div>
+
+  <div class="option" (click)="darkToggle()">
+    <span>
+      Ciemny motyw
+    </span>
+    <mat-slide-toggle style="float:right;"
+                      (click)="$event.preventDefault()"
+                      [checked]="prefs.dark"></mat-slide-toggle>
+  </div>
+
+</mat-expansion-panel>

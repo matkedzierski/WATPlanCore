@@ -1,0 +1,26 @@
+.btn {
+  padding: 5px 15px;
+  border: 1px solid #666;
+  border-radius: 0;
+  border-collapse: collapse;
+  font-weight: normal;
+  margin: -1px;
+}
+
+.btn.btn-left {
+  border-radius: 4px 0 0 4px;
+}
+
+.btn.btn-right {
+  border-radius: 0 4px 4px 0;
+}
+
+.date {
+  display: block;
+  height: 50px;
+  vertical-align: middle;
+}
+
+.date h1 {
+  line-height: 2.8;
+}

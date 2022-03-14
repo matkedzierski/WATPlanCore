@@ -1,0 +1,59 @@
+<mat-sidenav-container class="sidenav-container" autosize>
+
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset | async) ? 'over' : 'side'"
+               [opened]="(isHandset | async) === false">
+
+    <div class="menu-panel">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Moje plany
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list *ngIf="savedplans != null && savedplans.length > 0" style="margin-top: 8px;">
+          <a mat-flat-button class="plan-div"
+             [disabled]="lock"
+             *ngFor="let plan of savedplans"
+             (click)="selectPlan(plan)"
+             [class.mat-primary]="isActive(plan)">
+            <app-plan-list-option [plan]="plan" (delete)="deletePlan(plan)"></app-plan-list-option>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </div>
+    <div class="menu-panel">
+      <app-search></app-search>
+    </div>
+    <div class="menu-panel">
+      <app-preferences class="menu-panel"></app-preferences>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <ng-container *ngIf="currentPlans && currentPlans.length > 0">
+        <div class="plan-title">
+          <span *ngFor="let plan of currentPlans; let isLast=last">
+             {{plan.Name}}{{isLast ? '' : ',&nbsp;'}}
+          </span>
+        </div>
+      </ng-container>
+      <span *ngIf="!currentPlans || currentPlans.length == 0">Wybierz plan z listy...</span>
+    </mat-toolbar>
+
+    <app-tabs [plans]="currentPlans" *ngIf="currentPlans && currentPlans.length > 0"></app-tabs>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

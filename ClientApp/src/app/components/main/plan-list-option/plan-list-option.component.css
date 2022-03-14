@@ -1,0 +1,23 @@
+:host {
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+}
+
+.plan-div {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plan-div, .plan-div a {
+  vertical-align: middle;
+}
+
+.plan-div span {
+  flex-grow: 9;
+}
+
+.delete-icon {
+  vertical-align: middle;
+}

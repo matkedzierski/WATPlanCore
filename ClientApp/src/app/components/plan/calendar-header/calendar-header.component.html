@@ -1,0 +1,54 @@
+<div style="display: flex; justify-content: space-between">
+  <div>
+    <mat-button-toggle-group>
+      <mat-button-toggle mwlCalendarPreviousView #prev
+                         [view]=" view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="viewDateChange.next(viewDate)"
+                         (click)="prev.checked = false">
+        Poprzedni
+      </mat-button-toggle>
+      <mat-button-toggle mwlCalendarToday #current
+                         [checked]="viewDate.getMonth() === now.getMonth()"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="viewDateChange.next(viewDate)"
+                         (click)="$event.preventDefault()">
+        Obecny
+      </mat-button-toggle>
+      <mat-button-toggle mwlCalendarNextView #next
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="viewDateChange.next(viewDate)"
+                         (click)="next.checked = false">
+        Następny
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+
+  <div class="date">
+    <h1>{{ viewDate | calendarDate: (view + 'ViewTitle'):locale }}</h1>
+  </div>
+
+
+  <div>
+    <mat-button-toggle-group>
+      <mat-button-toggle
+        checked
+        (click)="viewChange.emit(CalendarView.Month)">
+        Miesiąc
+      </mat-button-toggle>
+      <mat-button-toggle
+        (click)="viewChange.emit(CalendarView.Week)">
+        Tydzień
+      </mat-button-toggle>
+      <mat-button-toggle
+        (click)="viewChange.emit(CalendarView.Day)">
+        Dzień
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+
+
+<br/>

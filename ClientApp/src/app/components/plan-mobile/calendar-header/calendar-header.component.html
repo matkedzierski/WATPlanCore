@@ -1,0 +1,59 @@
+<div class="date" style="width: 100%; text-align: center;">
+  <h1>{{ viewDate | calendarDate: (view + 'ViewTitle'):locale }}</h1>
+</div>
+<br/>
+
+
+<div style="display: flex; justify-content: space-between">
+  <mat-button-toggle-group>
+    <mat-button-toggle mwlCalendarPreviousView #prev
+                       [view]=" view"
+                       [(viewDate)]="viewDate"
+                       (viewDateChange)="viewDateChange.next(viewDate)"
+                       (click)="prev.checked = false">
+      <mat-icon>
+        arrow_back
+      </mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle mwlCalendarToday #current
+                       [checked]="viewDate.getMonth() === now.getMonth()"
+                       [(viewDate)]="viewDate"
+                       (viewDateChange)="viewDateChange.next(viewDate)"
+                       (click)="$event.preventDefault()">
+      <mat-icon style="transform: rotate(90deg);">
+        vertical_align_center
+      </mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle mwlCalendarNextView #next
+                       [view]="view"
+                       [(viewDate)]="viewDate"
+                       (viewDateChange)="viewDateChange.next(viewDate)"
+                       (click)="next.checked = false">
+      <mat-icon>
+        arrow_forward
+      </mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-button-toggle-group>
+    <mat-button-toggle
+      checked
+      (click)="viewChange.emit(CalendarView.Month)">
+      <mat-icon>
+        calendar_view_month
+      </mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle
+      (click)="viewChange.emit(CalendarView.Week)">
+      <mat-icon>
+        calendar_view_week
+      </mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle
+      (click)="viewChange.emit(CalendarView.Day)">
+      <mat-icon>
+        calendar_view_day
+      </mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

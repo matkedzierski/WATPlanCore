@@ -1,0 +1,49 @@
+<div style="padding: 20px">
+  <app-plan-calendar-header [(view)]="view" [viewDate]="viewDate" (viewDateChange)="viewDateChanged($event)">
+  </app-plan-calendar-header>
+
+
+  <div *ngIf="isLoading" style="text-align: center; margin: 30px auto; font-size: 30pt; line-height: 120%;">
+    Wczytywanie wydarzeń...
+    <mat-spinner [diameter]="200" style="margin: 30px auto;"></mat-spinner>
+  </div>
+
+
+  <div [ngSwitch]="view" *ngIf="!isLoading">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [locale]="'pl'"
+      [viewDate]="viewDate"
+      [events]="shownEvents"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      [weekStartsOn]="1"
+      [excludeDays]="prefs.weekends ? [6, 0] : []"
+    >
+    </mwl-calendar-month-view>
+
+
+    <mwl-calendar-week-view
+      [weekStartsOn]="1"
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="shownEvents"
+      [locale]="'pl'"
+      [excludeDays]="prefs.weekends ? [6, 0] : []"
+      [dayStartHour]="prefs.hours ? 8 : 0"
+      [dayEndHour]="prefs.hours ? 20 : 24"
+    >
+    </mwl-calendar-week-view>
+
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="shownEvents"
+      [locale]="'pl'"
+      [dayStartHour]="prefs.hours ? 8 : 0"
+      [dayEndHour]="prefs.hours ? 20 : 24"
+    >
+    </mwl-calendar-day-view>
+
+  </div>
+</div>

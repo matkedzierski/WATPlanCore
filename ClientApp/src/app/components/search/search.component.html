@@ -1,0 +1,38 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Znajdź plan
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-form-field class="example-full-width" appearance="fill" *ngIf="!isLoading">
+    <mat-label>Wyszukaj...</mat-label>
+    <input matInput placeholder="Wpisz co najmniej 4 znaki" (input)="searchPlans($event)" [formControl]="search">
+  </mat-form-field>
+
+  <div *ngIf="!isLoading">
+    Dostępnych planów: <strong>{{allplans.length}}</strong><br/>
+  </div>
+
+  <div *ngIf="!isLoading && filteredplans.length > 0">
+    Dopasowań: <strong>{{filteredplans.length}}</strong><br/>
+  </div>
+
+
+  <mat-nav-list *ngIf="shownplans != null && shownplans.length > 0 && !isLoading">
+    <a mat-list-item
+       *ngFor="let plan of shownplans"
+       (click)="savePlan(plan)"
+       class="plan-div">
+      <div #item style="display: flex; height: 100%; align-items: center;">
+        <span [class.move]="plan.Name.length > 20" [ngStyle]="getTransitionTimes(plan)">{{plan.Name}}</span>
+      </div>
+    </a>
+  </mat-nav-list>
+
+  <div *ngIf="isLoading" style="text-align: center; margin: 30px auto; font-size: 18px; line-height: 120%;">
+    Ładowanie planów...
+    <mat-spinner [diameter]="100" style="margin: 10px auto;"></mat-spinner>
+  </div>
+
+</mat-expansion-panel>
