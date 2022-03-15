@@ -114,7 +114,9 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   deletePlan(plan: Plan) {
-    this.eventLoader.unloadEvents(plan.id);
+    if(this.currentPlans.map(p => p.id).includes(plan.id)){
+      this.selectPlan(plan);
+    }
     let ind = this.savedplans.findIndex(p => p == plan);
     this.savedplans.splice(ind, 1);
     this.cookies.deleteSaved(plan);
