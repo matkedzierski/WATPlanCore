@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WATPlanCore.Aggregators;
+using WATPlanCore.Data;
 using WATPlanCore.Models;
 
 namespace WATPlanCore.Controllers;
@@ -8,6 +9,15 @@ namespace WATPlanCore.Controllers;
 [ApiController]
 public class ApiController : ControllerBase
 {
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly PlansDbContext _db;
+
+        public ApiController(IHttpContextAccessor httpContextAccessor, PlansDbContext dbContext)
+    {
+        _httpContextAccessor = httpContextAccessor;
+        _db = dbContext;
+    }
+    
     [HttpGet("units")]
     public async Task<IEnumerable<Unit>> GetUnits()
     {
@@ -30,8 +40,12 @@ public class ApiController : ControllerBase
     }
     
     [HttpGet("events/{id}")]
-    public async Task<IEnumerable<Event>?> GetEvents(string id)
+    public async Task<IEnumerable<Event>?> GetEvents(string? id)
     {
-        return await EventAggregator.GetPlanEvents(id);
+        var list = await EventAggregator.GetPlanEvents(id);
+        var entry = new HistoryEntry(id, _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress);
+        _db.History?.Add(entry);
+        await _db.SaveChangesAsync();
+        return list;
     }
 }

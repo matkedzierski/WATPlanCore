@@ -16,7 +16,7 @@ public static class EventAggregator
 
     private static readonly string[] ColorValues = { "#32CD32", "#48D1CC", "#ADFF2F", "#A0A0A0", "#F09090", "#FFEBCD", "#886347", "#CD5C5C", "#EE82EE", "#FFA07A", "#AFEEEE", "#D8BFD8", "#B8860B", "#FFFACD", "#E6E6FA", "#FFD700", "#32CD32", "#00FFFF", "#DEB887", "#90EE90", "#F08080", "#FF1493", "#E9967A", "#F0FFF0", "#FFDEAD", "#ADFF2F", "#FFEFD5", "#FF69B4", "#AAAAAA", "#883312", "#32CD32", "#48D1CC", "#ADFF2F", "#A0A0A0", "#F09090", "#FFEBCD", "#FF6347", "#CD5C5C", "#EE82EE", "#FFA07A", "#AFEEEE", "#D8BFD8", "#B8860B", "#FFFACD", "#E6E6FA", "#FFD700", "#32CD32", "#00FFFF", "#DEB887", "#90EE90", "#F08080", "#FF1493", "#E9967A", "#F0FFF0", "#FFDEAD", "#ADFF2F", "#FFEFD5", "#FF69B4", "#AAAAAA", "#883312" };
     
-    public static async Task<IEnumerable<Event>?> GetPlanEvents(string planId)
+    public static async Task<IEnumerable<Event>?> GetPlanEvents(string? planId)
     {
         var currDate = DateTime.Now;
             var startOfAcademicYear = new DateTime(currDate.Year, 10, 1);
