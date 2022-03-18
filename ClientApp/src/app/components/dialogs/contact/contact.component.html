@@ -1,0 +1,48 @@
+<form #form="ngForm" (ngSubmit)="submit(form)">
+  <h2>Formularz kontaktowy</h2>
+
+  <mat-form-field color="accent" appearance="outline">
+    <mat-label>Kategoria zgłoszenia</mat-label>
+    <mat-select [(ngModel)]="model.category" name="category" required>
+      <mat-option *ngFor="let cat of categories" [value]="cat.category">{{cat.label}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.controls.category?.hasError('required')">To pole jest wymagane!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field color="accent" *ngIf="planRelatedCategories.includes(model.category)" appearance="outline">
+    <mat-label>Nazwa grupy</mat-label>
+    <input matInput type="text" [(ngModel)]="model.planName" name="planName" required [minlength]="3">
+    <mat-error *ngIf="form.controls.planName?.errors?.minlength">Nazwa grupy jest za krótka</mat-error>
+    <mat-error *ngIf="form.controls.planName?.hasError('required')">To pole jest wymagane</mat-error>
+  </mat-form-field>
+
+  <mat-form-field color="accent" appearance="outline">
+    <mat-label>Treść zgłoszenia</mat-label>
+    <textarea matInput
+              required minlength="5"
+              name="content"
+              [(ngModel)]="model.content"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="10"></textarea>
+    <mat-error *ngIf="form.controls.content?.hasError('required')">To pole jest wymagane!</mat-error>
+    <mat-error *ngIf="form.controls.content?.errors?.minlength">Treść zgłoszenia jest za krótka</mat-error>
+  </mat-form-field>
+
+  <mat-form-field color="accent" appearance="outline">
+    <mat-label>Imię (opcjonalnie)</mat-label>
+    <input matInput type="text" [(ngModel)]="model.sender" name="sender" maxlength="30">
+    <mat-error *ngIf="form.controls.sender?.errors?.maxlength">Imię jest zbyt długie</mat-error>
+  </mat-form-field>
+
+  <mat-form-field color="accent" appearance="outline">
+    <mat-label>E-mail (opcjonalnie)</mat-label>
+    <input matInput type="text" [(ngModel)]="model.email" name="email" email maxlength="30">
+    <mat-error *ngIf="form.controls.email?.errors?.email">Niepoprawny e-mail</mat-error>
+    <mat-error *ngIf="form.controls.email?.errors?.maxlength">E-mail jest zbyt długi</mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Prześlij</button>&nbsp;
+  <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false">Zamknij</button>
+</form>

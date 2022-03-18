@@ -23,6 +23,9 @@ public class Event
     public int       DayOfWeek   { get; set; } // 1-7
     public int       BlockNumber { get; set; } // 1-7
     public int       BlockSpan   { get; set; } // 1-7
+    
+    public string?   PlanId { get; set; }
+    public string?   PlanName { get; set; }
         
                                                   
     public override string ToString()
@@ -39,7 +42,9 @@ public class Event
                $"\tWeek        {Week       }\n" +
                $"\tDayOfWeek   {DayOfWeek  }\n" +
                $"\tBlockNumber {BlockNumber}\n" +
-               $"\tBlockSpan   {BlockSpan  }\n"
+               $"\tBlockSpan   {BlockSpan  }\n" +
+               $"\tPlanId      {PlanId  }\n" +
+               $"\tPlanName    {PlanName  }\n" 
             ;
     }
 }

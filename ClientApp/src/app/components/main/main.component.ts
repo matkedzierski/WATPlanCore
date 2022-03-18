@@ -9,6 +9,9 @@ import {PlanComponent} from "../plan/plan.component";
 import {PreferencesService} from "../../services/preferences.service";
 import {EventLoader} from "../../services/event-loader.service";
 import {CookieService} from "../../services/cookie.service";
+import {MatDialog} from "@angular/material/dialog";
+import {StatsComponent} from "../dialogs/stats/stats.component";
+import {ContactComponent} from "../dialogs/contact/contact.component";
 
 @Component({
   selector: 'app-root',
@@ -37,7 +40,8 @@ export class MainComponent implements OnInit, AfterViewInit {
               private cookies: CookieService,
               private snackBar: MatSnackBar,
               private prefService: PreferencesService,
-              private eventLoader: EventLoader) {
+              private eventLoader: EventLoader,
+              private dialog: MatDialog) {
 
     prefService.prefsChanged.subscribe(m => this.prefsChanged(m));
     prefService.savePlan.subscribe(plan => this.savePlan(plan));
@@ -145,5 +149,13 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
+  }
+
+  showStatistics() {
+    this.dialog.open(StatsComponent, {width: "50%", minWidth: "400px"});
+  }
+
+  showContactForm() {
+    this.dialog.open(ContactComponent, {width: "50%", minWidth: "400px"});
   }
 }

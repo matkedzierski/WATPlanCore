@@ -6,6 +6,7 @@ namespace WATPlanCore.Data;
 public class PlansDbContext : DbContext
 {
     public DbSet<HistoryEntry>? History { get; set; }
+    public DbSet<Ticket>? ContactTickets { get; set; }
 
     public PlansDbContext(DbContextOptions<PlansDbContext> options) : base(options)
     {

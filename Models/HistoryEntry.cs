@@ -1,22 +1,25 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using WATPlanCore.Aggregators;
 
 namespace WATPlanCore.Models;
 
 public class HistoryEntry
 {
     [Key]
-    public Guid Id { get; set; }
+    public long Id { get; set; }
 
     public string? PlanId { get; set; }
-    public DateTime? CreatedDate { get; set; }
-    public IPAddress? UserIp { get; set; }
+    public string? PlanName { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public string UserIp { get; set; }
 
-    public HistoryEntry(string? planId, IPAddress? userIp)
+    public HistoryEntry(string? planId, string userIp, string? planName)
     {
         PlanId = planId;
         UserIp = userIp;
-        CreatedDate = DateTime.Now;
+        PlanName = planName;
+        CreatedDate = TimeZoneInfo.ConvertTime(DateTime.Now, EventAggregator.Cest);
     }
 
     public HistoryEntry()

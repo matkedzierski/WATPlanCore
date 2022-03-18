@@ -33,7 +33,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="content">
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" style="display: flex; flex-direction: row; justify-content: space-between">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -43,13 +43,33 @@
       </button>
 
       <ng-container *ngIf="currentPlans && currentPlans.length > 0">
-        <div class="plan-title">
+        <div class="plan-title" style="flex: 1">
           <span *ngFor="let plan of currentPlans; let isLast=last">
              {{plan.name}}{{isLast ? '' : ',&nbsp;'}}
           </span>
         </div>
       </ng-container>
-      <span *ngIf="!currentPlans || currentPlans.length == 0">Wybierz plan z listy...</span>
+      <span *ngIf="!currentPlans || currentPlans.length == 0" style="flex: 1">Wybierz plan z listy...</span>
+
+      <button
+        matTooltip="Kontakt"
+        style="float: right"
+        type="button"
+        aria-label="Kontakt"
+        mat-icon-button
+        (click)="showContactForm()">
+        <mat-icon>question_answer</mat-icon>
+      </button>
+
+      <button
+        matTooltip="Pokaż statystyki"
+        style="float: right"
+        type="button"
+        aria-label="Pokaż statystyki"
+        mat-icon-button
+        (click)="showStatistics()">
+        <mat-icon aria-label="Przycisk statystyk">insert_chart_outlined</mat-icon>
+      </button>
     </mat-toolbar>
 
     <app-tabs [plans]="currentPlans" *ngIf="currentPlans && currentPlans.length > 0"></app-tabs>

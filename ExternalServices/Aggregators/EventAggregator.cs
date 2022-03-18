@@ -6,7 +6,7 @@ namespace WATPlanCore.Aggregators;
 
 public static class EventAggregator
 {
-    private static readonly TimeZoneInfo Cest = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+    public static readonly TimeZoneInfo Cest = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
 
     private static readonly CalendarService Service = new(new BaseClientService.Initializer
     {
@@ -57,7 +57,9 @@ public static class EventAggregator
                     Week = GetEventWeekNumber(start),
                     DayOfWeek = GetEventDayOfWeek(start),
                     BlockNumber = GetEventBlockNumber(start),
-                    BlockSpan = GetEventBlockSpan(start, end)
+                    BlockSpan = GetEventBlockSpan(start, end),
+                    PlanId = ge.Id,
+                    PlanName = PlanAggregator.GetPlanName(gEvents.Summary)
                 };
                 ret.Add(ev);
             }

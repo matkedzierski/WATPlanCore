@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using WATPlanCore.Aggregators;
 using WATPlanCore.Data;
@@ -12,11 +13,13 @@ public class ApiController : ControllerBase
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PlansDbContext _db;
 
-        public ApiController(IHttpContextAccessor httpContextAccessor, PlansDbContext dbContext)
+    public ApiController(IHttpContextAccessor httpContextAccessor, PlansDbContext dbContext)
     {
         _httpContextAccessor = httpContextAccessor;
         _db = dbContext;
     }
+        
+        
     
     [HttpGet("units")]
     public async Task<IEnumerable<Unit>> GetUnits()
@@ -24,6 +27,8 @@ public class ApiController : ControllerBase
         var list = await UnitAggregator.GetAllUnits();
         return (list ?? Array.Empty<Unit>()).OrderByDescending(u =>  u.PlansCount);
     }
+    
+    
 
     [HttpGet("plans")]
     public async Task<IEnumerable<Plan>?> GetAllPlans()
@@ -39,13 +44,20 @@ public class ApiController : ControllerBase
         return list?.OrderBy(p => p.Name?.ToLower());
     }
     
+    
+    
     [HttpGet("events/{id}")]
     public async Task<IEnumerable<Event>?> GetEvents(string? id)
     {
-        var list = await EventAggregator.GetPlanEvents(id);
-        var entry = new HistoryEntry(id, _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress);
+        var userAddress = _httpContextAccessor.HttpContext!.Connection.RemoteIpAddress!;
+        var list = (await EventAggregator.GetPlanEvents(id))!.ToList();
+        
+        if (list.Count <= 0) return list;
+        
+        var entry = new HistoryEntry(id, userAddress.ToString(), list[0].PlanName);
         _db.History?.Add(entry);
         await _db.SaveChangesAsync();
+
         return list;
     }
 }

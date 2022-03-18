@@ -31,7 +31,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {CookieService} from "./services/cookie.service";
@@ -41,6 +41,14 @@ import {PreferencesComponent} from './components/preferences/preferences.compone
 import {SearchComponent} from './components/search/search.component';
 import {PlanMobileComponent} from './components/plan-mobile/plan-mobile.component';
 import {CalendarHeaderMobileComponent} from "./components/plan-mobile/calendar-header/calendar-header.component";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {StatsComponent} from "./components/dialogs/stats/stats.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import { TopPlansComponent } from './components/dialogs/stats/top-plans/top-plans.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSelectModule} from "@angular/material/select";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { ContactComponent } from './components/dialogs/contact/contact.component';
 
 
 registerLocaleData(localePl);
@@ -57,7 +65,10 @@ registerLocaleData(localePl);
     PreferencesComponent,
     SearchComponent,
     CalendarHeaderMobileComponent,
-    PlanMobileComponent
+    PlanMobileComponent,
+    StatsComponent,
+    TopPlansComponent,
+    ContactComponent
   ],
   exports: [MainComponent],
   imports: [
@@ -87,7 +98,13 @@ registerLocaleData(localePl);
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSelectModule,
+    FormsModule,
+    MatCheckboxModule
   ],
   providers: [CookieService],
   bootstrap: [MainComponent]
