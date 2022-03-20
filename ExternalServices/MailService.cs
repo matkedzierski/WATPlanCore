@@ -46,8 +46,8 @@ public class MailService : IMailService
     private MailMessage PrepareEmptyEmail(bool html)
     {
         var email = new MailMessage();
-        email.Sender = new MailAddress(_mailSettings.Mail, "WATPlan");
-        email.From = new MailAddress(_mailSettings.Mail, "WATPlan");
+        email.Sender = new MailAddress(_mailSettings.Mail, _mailSettings.DisplayName);
+        email.From = new MailAddress(_mailSettings.Mail, _mailSettings.DisplayName);
         email.IsBodyHtml = html;
         return email;
     }
