@@ -2,10 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using WATPlanCore.Aggregators;
 using WATPlanCore.Data;
 using WATPlanCore.ExternalServices;
+using WATPlanCore.ExternalServices.Aggregators;
 using WATPlanCore.Models;
 
 namespace WATPlanCore.Controllers;
 
+/// <summary>
+/// Umożliwia przesyłanie zgłoszeń do supportu aplikacji.
+/// </summary>
 [Route("api/contact")]
 [ApiController]
 public class ContactController : ControllerBase
@@ -19,6 +23,10 @@ public class ContactController : ControllerBase
         _mail = mail;
     }
     
+    /// <summary>
+    /// Przesyła nowe zgłoszenie do supportu.
+    /// </summary>
+    /// <param name="ticket">Model zgłoszenia (Ticket) z jego szczegółami.</param>
     [HttpPost("ticket")]
     public async Task SendTicket([FromBody] Ticket ticket)
     {

@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using WATPlanCore.Aggregators;
 using WATPlanCore.Data;
+using WATPlanCore.ExternalServices.Aggregators;
 using WATPlanCore.Models;
 
 namespace WATPlanCore.Controllers;
 
+/// <summary>
+/// Umożliwia dostęp do statystyk użycia WATPlan'u.
+/// </summary>
 [Route("api/stats")]
 [ApiController]
 public class StatsController : ControllerBase
@@ -16,6 +20,13 @@ public class StatsController : ControllerBase
         _db = dbContext;
     }
     
+    /// <summary>
+    /// Zwraca ranking - liczbę odwiedzin poszczególnych planów z wybranej liczby ostatnich dni.
+    /// </summary>
+    /// <param name="count">Maks. liczba planów uwzględniona w zestawieniu (np. TOP 100 planów) - dla 0 uwzględnia wszystkie.</param>
+    /// <param name="days">Maks. liczba ostatnich dni z których dane mają być uwzględnione - dla 0 od początku.</param>
+    /// <param name="unique">Sprawdzanie tylko unikalnych odwiedzin (dostępne wkrótce)</param>
+    /// <returns>Lista wpisów rankingowych (RankEntry[])</returns>
     [HttpGet("top/{count:int}/{days:int}/{unique:bool}")]
     public IEnumerable<RankEntry> GetTopPlans(int count, int days, bool unique)
     {
@@ -25,7 +36,7 @@ public class StatsController : ControllerBase
 
         var filtered = (!isDevelopment ? _db.History!.Where(h => !h.UserIp.StartsWith("127")) : _db.History!)
             .Where(h => h.CreatedDate > beginDate);
-        var grouped = filtered.GroupBy(historyEntry => new {historyEntry.PlanId, historyEntry.PlanName, historyEntry.UserIp});
+        var grouped = filtered.GroupBy(historyEntry => new {historyEntry.PlanId, historyEntry.PlanName});
         var rank = grouped.Select(group => 
                 new RankEntry 
                 {

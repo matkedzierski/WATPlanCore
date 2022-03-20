@@ -52,9 +52,9 @@ public static class PlanAggregator
         return calendarId?[..calendarId.IndexOf("@", StringComparison.Ordinal)];
     }
 
-    public static string? GetPlanName(string? calendarName)
+    public static string GetPlanName(string calendarName)
     {
-        return calendarName?[..calendarName.LastIndexOf(" ", StringComparison.Ordinal)];
+        return calendarName[..calendarName.LastIndexOf(" ", StringComparison.Ordinal)];
     }
     private static string? GetPlanType(string? calendarName)
     {

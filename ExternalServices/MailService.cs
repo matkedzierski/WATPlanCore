@@ -37,7 +37,7 @@ public class MailService : IMailService
     private MailMessage PrepareSelfNotification(Ticket ticket)
     {
         var email = PrepareEmptyEmail(true);
-        email.Subject = $"[{ticket.Category}] Zgłoszenie nr {ticket.TicketId} z dnia {ticket.CreatedDate.ToShortDateString()}";
+        email.Subject = $"[{ticket.CategoryName}] Zgłoszenie nr {ticket.TicketId} z dnia {ticket.CreatedDate.ToShortDateString()}";
         email.To.Add(new MailAddress(_mailSettings.Mail));
         email.Body = BuildNotificationEmailBody(ticket);
         return email;
@@ -79,7 +79,7 @@ public class MailService : IMailService
             .Replace(WP_TICKET_NO, ticket.TicketId)
             .Replace(WP_TICKET_DATE, ticket.CreatedDate.ToShortDateString())
             .Replace(WP_TICKET_TIME, ticket.CreatedDate.ToShortTimeString())
-            .Replace(WP_TICKET_CATEGORY, ticket.Category)
+            .Replace(WP_TICKET_CATEGORY, ticket.CategoryName)
             .Replace(WP_TICKET_PLANNAME, ticket.PlanName)
             .Replace(WP_TICKET_CONTENT, ticket.Content)
             .Replace(WP_TICKET_SENDER_OR_EMPTY, string.IsNullOrEmpty(ticket.Sender) ? "" : ", " + ticket.Sender)

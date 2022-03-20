@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using WATPlanCore.Aggregators;
+using WATPlanCore.ExternalServices.Aggregators;
 
 namespace WATPlanCore.Models;
 
