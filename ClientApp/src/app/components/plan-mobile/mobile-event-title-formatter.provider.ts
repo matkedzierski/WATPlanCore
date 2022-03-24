@@ -15,7 +15,7 @@ export class MobileEventTitleFormatter extends CalendarEventTitleFormatter {
   }
 
   week(event: CalendarEvent): string {
-    return `<span class="break center"><span>${event.meta.event.Shortcut}</span></span><span class="break center">(${event.meta.event.typeShortcut})</span><span class="break center">[${event.meta.event.number}]</span>`;
+    return `<span class="break center"><span>${event.meta.event.shortcut}</span></span><span class="break center">(${event.meta.event.typeShortcut})</span><span class="break center">[${event.meta.event.number}]</span>`;
   }
 
   weekTooltip(event: CalendarEvent, title: string): string {
