@@ -1,5 +1,5 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using WATPlanCore.Aggregators;
 using WATPlanCore.Data;
 using WATPlanCore.ExternalServices;
 using WATPlanCore.ExternalServices.Aggregators;
@@ -10,8 +10,10 @@ namespace WATPlanCore.Controllers;
 /// <summary>
 /// Umożliwia przesyłanie zgłoszeń do supportu aplikacji.
 /// </summary>
+[Produces("application/json")]
 [Route("api/contact")]
 [ApiController]
+[EnableCors("watplan")]
 public class ContactController : ControllerBase
 {
     private readonly PlansDbContext _db;

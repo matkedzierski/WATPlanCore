@@ -9,10 +9,12 @@ namespace WATPlanCore.ExternalServices;
 public class MailService : IMailService
 {
     private readonly MailSettings _mailSettings;
+    private readonly ILogger _logger;
 
-    public MailService(IOptions<MailSettings> mailSettings)
+    public MailService(IOptions<MailSettings> mailSettings, ILogger<MailService> logger)
     {
         _mailSettings = mailSettings.Value;
+        _logger = logger;
     }
 
     public async Task TicketSent(Ticket ticket)
@@ -54,6 +56,7 @@ public class MailService : IMailService
 
     private async Task SendEmail(MailMessage email)
     {
+        _logger.LogDebug("Sending email '{subject}' to '{addressee}'", email.Subject, email.To.First().Address);
         using var smtp = new SmtpClient(_mailSettings.Host, _mailSettings.Port);
         smtp.EnableSsl = true;
         smtp.Credentials = new NetworkCredential(_mailSettings.Mail, _mailSettings.Password);

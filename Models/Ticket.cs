@@ -34,7 +34,7 @@ public class Ticket
     /// <summary>
     /// E-mail zgłaszającego, na który udzielamy odpowiedzi
     /// </summary>
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// Data utworzenia

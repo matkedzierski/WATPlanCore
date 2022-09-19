@@ -16,16 +16,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Google.Apis.Calendar.v3" Version="1.56.0.2590" />
-        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+        <PackageReference Include="Google.Apis.Calendar.v3" Version="1.56.0.2590"/>
+        <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3"/>
+        <PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.61"/>
+        <PackageReference Include="Serilog" Version="2.12.0"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="6.0.1"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -51,6 +56,7 @@
 
     <ItemGroup>
       <Folder Include="ClientApp\src\app\components\dialogs" />
+        <Folder Include="Migrations"/>
       <Folder Include="wwwroot" />
     </ItemGroup>
 

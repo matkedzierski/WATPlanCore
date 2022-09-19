@@ -1,17 +1,27 @@
 using System.Text.Json;
+using Microsoft.Extensions.Options;
+using WATPlanCore.ExternalServices.Aggregators;
 using WATPlanCore.Models;
 using WATPlanCore.Models.Json;
+using WATPlanCore.Models.Settings;
 
 namespace WATPlanCore.Aggregators;
 
-public static class PlanAggregator
+public class PlanAggregator : IPlanAggregator
 {
+    private readonly PlanSoftSettings _planSoftSettings;
+    private readonly IUnitAggregator _unitAggregator;
 
-    private const string PlanPrefix = "http://plansoft.org/wat/";
-    public static async Task<IEnumerable<Plan>?> GetPlansForUnit(string? unitId)
+    public PlanAggregator(IUnitAggregator unitAggregator, IOptions<PlanSoftSettings> planSoftSettings)
+    {
+        _unitAggregator = unitAggregator;
+        _planSoftSettings = planSoftSettings.Value;
+    }
+
+    public async Task<IEnumerable<Plan>?> GetPlansForUnit(string? unitId)
     {
         Console.WriteLine($"Getting plans for unit {unitId}");
-        var client = new HttpClient { BaseAddress = new Uri(PlanPrefix) };
+        var client = new HttpClient { BaseAddress = new Uri(_planSoftSettings.BaseUnitUrl) };
         string json;
         try
         {
@@ -61,15 +71,15 @@ public static class PlanAggregator
         return calendarName?[(calendarName.LastIndexOf(" ", StringComparison.Ordinal)+1)..];
     }
 
-    public static async Task<IEnumerable<Plan>> GetAllPlans()
+    public async Task<IEnumerable<Plan>> GetAllPlans()
     {
         Console.WriteLine($"Getting all plans");
-        var units = await UnitAggregator.GetAllUnits();
+        var units = await _unitAggregator.GetAllUnits();
         var list = new List<Plan>();
         if (units == null) return list;
         foreach (var unit in units)
         {
-            list.AddRange(await GetPlansForUnit(unit.Id!) ?? Array.Empty<Plan>());
+            list.AddRange(await GetPlansForUnit(unit.Id) ?? Array.Empty<Plan>());
         }
 
         return list;

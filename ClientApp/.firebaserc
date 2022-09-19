@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "watplan20"
+  },
+  "targets": {
+    "watplan20": {
+      "hosting": {
+        "watplan": [
+          "watplan"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

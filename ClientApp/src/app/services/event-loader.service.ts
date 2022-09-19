@@ -3,13 +3,15 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Event} from "../models/event";
 import {EventColor} from "calendar-utils";
 import {Observable, Subject} from "rxjs";
+import {environment} from "../../environments/environment";
+
+const API_BASE_URL = "/api/events";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventLoader {
 
-  private API_BASE_URL = "api/events";
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
@@ -24,7 +26,7 @@ export class EventLoader {
   }
 
   getEvents(planID: string): Observable<Event[]> {
-    return this.api.get<Event[]>(this.API_BASE_URL + '/' + planID, {headers: this.headers});
+    return this.api.get<Event[]>(`${environment.apiUrl}${API_BASE_URL}/${planID}`, {headers: this.headers});
   }
 
   mapper = (event: Event, planID: string) => {

@@ -1,6 +1,5 @@
-using System.Net;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using WATPlanCore.Aggregators;
 using WATPlanCore.Data;
 using WATPlanCore.ExternalServices.Aggregators;
 using WATPlanCore.Models;
@@ -13,15 +12,24 @@ namespace WATPlanCore.Controllers;
 [Produces("application/json")]
 [Route("api")]
 [ApiController]
+[EnableCors("watplan")]
 public class PlansController : ControllerBase
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PlansDbContext _db;
+    private readonly IUnitAggregator _unitAggregator;
+    private readonly IPlanAggregator _planAggregator;
+    private readonly IEventAggregator _eventAggregator;
 
-    public PlansController(IHttpContextAccessor httpContextAccessor, PlansDbContext dbContext)
+
+    public PlansController(IHttpContextAccessor httpContextAccessor, PlansDbContext dbContext,
+        IUnitAggregator aggregator, IPlanAggregator planAggregator, IEventAggregator eventAggregator)
     {
         _httpContextAccessor = httpContextAccessor;
         _db = dbContext;
+        _unitAggregator = aggregator;
+        _planAggregator = planAggregator;
+        _eventAggregator = eventAggregator;
     }
         
         
@@ -32,7 +40,7 @@ public class PlansController : ControllerBase
     [HttpGet("units")]
     public async Task<IEnumerable<Unit>> GetUnits()
     {
-        var list = await UnitAggregator.GetAllUnits();
+        var list = await _unitAggregator.GetAllUnits();
         return (list ?? Array.Empty<Unit>()).OrderByDescending(u =>  u.PlansCount);
     }
     
@@ -45,7 +53,7 @@ public class PlansController : ControllerBase
     [HttpGet("plans")]
     public async Task<IEnumerable<Plan>?> GetAllPlans()
     {
-        var list = await PlanAggregator.GetAllPlans();
+        var list = await _planAggregator.GetAllPlans();
         return list?.OrderBy(p => p.Name?.ToLower());
     }
     
@@ -57,7 +65,7 @@ public class PlansController : ControllerBase
     [HttpGet("plans/{id}")]
     public async Task<IEnumerable<Plan>?> GetUnitPlans(string id)
     {
-        var list = await PlanAggregator.GetPlansForUnit(id);
+        var list = await _planAggregator.GetPlansForUnit(id);
         return list?.OrderBy(p => p.Name?.ToLower());
     }
 
@@ -70,7 +78,7 @@ public class PlansController : ControllerBase
     public async Task<IEnumerable<Event>?> GetEvents(string? id)
     {
         var userAddress = _httpContextAccessor.HttpContext!.Connection.RemoteIpAddress!;
-        var list = (await EventAggregator.GetPlanEvents(id))!.ToList();
+        var list = (await _eventAggregator.GetPlanEvents(id))!.ToList();
         
         if (list.Count <= 0) return list;
         

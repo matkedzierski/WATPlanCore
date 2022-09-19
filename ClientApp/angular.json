@@ -74,8 +74,7 @@
               "browserTarget": "WATPlanCore3:build:production"
             },
             "development": {
-              "browserTarget": "WATPlanCore3:build:development",
-              "proxyConfig": "proxy.conf.js"
+              "browserTarget": "WATPlanCore3:build:development"
             }
           },
           "defaultConfiguration": "development"

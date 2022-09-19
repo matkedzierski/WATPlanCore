@@ -1,5 +1,5 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using WATPlanCore.Aggregators;
 using WATPlanCore.Data;
 using WATPlanCore.ExternalServices.Aggregators;
 using WATPlanCore.Models;
@@ -9,8 +9,10 @@ namespace WATPlanCore.Controllers;
 /// <summary>
 /// Umożliwia dostęp do statystyk użycia WATPlan'u.
 /// </summary>
+[Produces("application/json")]
 [Route("api/stats")]
 [ApiController]
+[EnableCors("watplan")]
 public class StatsController : ControllerBase
 {
     private readonly PlansDbContext _db;

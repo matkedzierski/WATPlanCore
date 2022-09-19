@@ -1,10 +1,10 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
+import {FormBuilder, NgForm} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {TicketCategory} from 'src/app/models/enum/ticket-category.enum';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import { Ticket } from 'src/app/models/ticket';
+import {Ticket} from 'src/app/models/ticket';
 import {ContactService} from "../../../services/contact.service";
 
 @Component({
@@ -31,10 +31,12 @@ export class ContactComponent implements OnInit {
   submit(form: NgForm) {
     if(form.valid){
       this.contactService.sendTicket(this.model).subscribe(
-        ()=>{},
-          err =>{
-            this.snack.open("Błąd podczas przesyłania zgłoszenia", "x", {duration: 1000});
-      })
+          () => {
+            this.snack.open("Zgłoszenie przesłane poprawnie!", "x", {duration: 2000});
+          },
+          err => {
+            this.snack.open("Błąd podczas przesyłania zgłoszenia", "x", {duration: 2000});
+          })
       this.ref.close();
     } else {
       console.log(form.controls);
